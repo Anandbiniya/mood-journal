@@ -30,9 +30,10 @@ const Home = ({ testimonies }) => {
         <Container className="header-container">
           <Row>
             <Col xs="12" lg="6" className="header-text">
-              <h1 className="header-brand">MoodJournal</h1>
+              <h1 className="header-brand">Self-Care Check-In Tool
+</h1>
               <p className="header-motto">
-                A digital way to track and uplift your mood.
+              Digital tools designed for self-care and mood improvement encompass features like mood tracking, mindfulness exercises, and personalized wellness plans, aiding individuals in enhancing their overall well-being..
               </p>
               {user ? (
                 <Button
@@ -60,7 +61,7 @@ const Home = ({ testimonies }) => {
             </Col>
             <Col xs="12" lg="6">
               <img
-                src={header_image}
+                src="https://img.freepik.com/free-vector/personal-growth-concept-illustration_114360-11052.jpg"
                 className="header-image"
                 alt="header-illustration"
               />
@@ -147,7 +148,7 @@ const Home = ({ testimonies }) => {
       </section>
 
       <section className="footer">
-        Made with <FaHeart style={{ color: "#F68989" }} /> at IIIT Lucknow.
+        Made with <FaHeart style={{ color: "#F68989" }} /> Anand Biniya.
       </section>
     </div>
   );

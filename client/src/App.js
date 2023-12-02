@@ -23,17 +23,17 @@ function App() {
 
   const testimonies = [
     {
-      name: "John Doe",
+      name: "Anand",
       review:
         "Simple easy to use journal website with a clean and user friendly UI. One can make daily entries easily and and can capture the mood of the writer pretty accurately.",
     },
     {
-      name: "Ayush Kumar",
+      name: "Vishwajeeth",
       review:
         "It was a pleasure working with the entire MoodJournal development team. They were able to launch our iOS app in a few months and it looks and works beautifully. ",
     },
     {
-      name: "Marty",
+      name: "Ayush",
       review:
         "An amazing and thoughful app.It helps to express myself only to me with full security.",
     },

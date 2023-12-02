@@ -75,17 +75,17 @@ const Sidebar = ({
           </MenuItem>
           {/* <MenuItem icon={<FaGem />}>Components </MenuItem> */}
           <MenuItem icon={<FaGem />}>
-            Private Journals <NavLink to="/dashboard/private-journals" />
+          personal diary.<NavLink to="/dashboard/private-journals" />
           </MenuItem>
           <MenuItem icon={<FaGem />}>
-            Public Journals <NavLink to="/dashboard/public-journals" />
+            Let People Know <NavLink to="/dashboard/public-journals" />
           </MenuItem>
           <MenuItem icon={<FaTachometerAlt />}>
-            Insights
+            Self Help
             <NavLink to="/dashboard/insights" />
           </MenuItem>
           <MenuItem icon={<FaTachometerAlt />}>
-            Uplift
+            Lift your Life
             <NavLink to="/dashboard/uplift" />
           </MenuItem>
           <MenuItem
