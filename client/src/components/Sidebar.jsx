@@ -100,6 +100,12 @@ const Sidebar = ({
           >
             Job Portal <NavLink to="/dashboard/JobPortalList" />
           </MenuItem>
+          <MenuItem
+            icon={<FaGem />}
+          
+          >
+            Clubs <NavLink to="/dashboard/Club" />
+          </MenuItem>
           <MenuItem icon={<FaGem />}>
             Home <NavLink to="/" />
           </MenuItem>

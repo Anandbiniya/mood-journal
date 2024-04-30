@@ -23,6 +23,8 @@ import Therapist from "./pages/dashboard/uplift/Therapist";
 // import JobPortalList from "./pages/dashboard/JobPortalList"; // Import the JobPortalList component
 import './App.css'; // Import the CSS file for styling
 import JobPortalList from "./pages/dashboard/JobPortalList";
+// import club from "./pages/dashboard/Club"
+import ClubPage from './pages/dashboard/Club';
 
 function App() {
   axios.defaults.baseURL = "http://localhost:5000/";
@@ -123,7 +125,10 @@ function App() {
   path="/dashboard/jobportallist"
   element={<ProtectedRoute><JobPortalList /></ProtectedRoute>}
 />
-
+<Route
+            path="/dashboard/Club"
+            element={<ProtectedRoute><ClubPage /></ProtectedRoute>}
+          />
           <Route path="/login" element={<LogIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />

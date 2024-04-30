@@ -11,7 +11,6 @@ const PublicJournals = () => {
     image: null,
   });
   const [submittedData, setSubmittedData] = useState([]);
-  const [bgImage, setBgImage] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,10 +47,6 @@ const PublicJournals = () => {
     setFormData({ memory: "", image: null });
   };
 
-  const handleBgImageChange = (e) => {
-    setBgImage(e.target.value);
-  };
-
   return (
     <DashboardLayout>
       <div>
@@ -76,34 +71,22 @@ const PublicJournals = () => {
               />
               <button type="submit">Submit</button>
             </form>
-            <div>
-              <div className="memories">
+            <table>
+              <thead>
+                <tr>
+                  <th>Memory</th>
+                  <th>Image</th>
+                </tr>
+              </thead>
+              <tbody>
                 {submittedData.map((data, index) => (
-                  <div key={index} className="memory">
-                    <p>{data.memory}</p>
-                    {data.image && (
-                      <img
-                        src={URL.createObjectURL(data.image)}
-                        alt="Memory"
-                      />
-                    )}
-                  </div>
+                  <tr key={index}>
+                    <td>{data.memory}</td>
+                    <td>{data.image && <img src={URL.createObjectURL(data.image)} alt="Memory" />}</td>
+                  </tr>
                 ))}
-              </div>
-            </div>
-            <div>
-              <input
-                type="text"
-                placeholder="Enter URL for background image..."
-                onChange={handleBgImageChange}
-              />
-              {bgImage && (
-                <div
-                  className="background-image"
-                  style={{ backgroundImage: `url(${bgImage})` }}
-                ></div>
-              )}
-            </div>
+              </tbody>
+            </table>
             <div>
               {posts.map((post, index) => (
                 <PostCardView key={index} post={post} isPrivate={false} />
