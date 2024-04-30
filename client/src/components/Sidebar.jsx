@@ -94,6 +94,12 @@ const Sidebar = ({
           >
             Resources <NavLink to="/dashboard/resources" />
           </MenuItem>
+          <MenuItem
+            icon={<FaGem />}
+            // suffix={<span className="badge red">S.O.S.</span>}
+          >
+            Job Portal <NavLink to="/dashboard/JobPortalList" />
+          </MenuItem>
           <MenuItem icon={<FaGem />}>
             Home <NavLink to="/" />
           </MenuItem>

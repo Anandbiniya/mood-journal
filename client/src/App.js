@@ -1,5 +1,7 @@
-import "./App.css";
-import { Route, Routes } from "react-router-dom";
+// App.js
+
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Home from "./pages/Home";
 import ContactUs from "./pages/ContactUs";
 import NotFound from "./pages/NotFound";
@@ -18,6 +20,10 @@ import axios from "axios";
 import Resources from "./pages/dashboard/Resources";
 import Insights from "./pages/dashboard/Insights";
 import Therapist from "./pages/dashboard/uplift/Therapist";
+// import JobPortalList from "./pages/dashboard/JobPortalList"; // Import the JobPortalList component
+import './App.css'; // Import the CSS file for styling
+import JobPortalList from "./pages/dashboard/JobPortalList";
+
 function App() {
   axios.defaults.baseURL = "http://localhost:5000/";
 
@@ -109,7 +115,15 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/dashboard/resources" element={<Resources/>}/>
+          <Route
+            path="/dashboard/resources"
+            element={<ProtectedRoute><Resources /></ProtectedRoute>}
+          />
+          <Route
+  path="/dashboard/jobportallist"
+  element={<ProtectedRoute><JobPortalList /></ProtectedRoute>}
+/>
+
           <Route path="/login" element={<LogIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />

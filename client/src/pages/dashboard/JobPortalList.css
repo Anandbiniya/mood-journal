@@ -1,0 +1,214 @@
+/* JobPortalList.css */
+
+.job-portal-container {
+    font-family: Arial, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .search-section {
+    margin-bottom: 20px;
+  }
+  
+  .jobs-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .jobs-table th, .jobs-table td {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .candidate-details,
+  .receiver-email {
+    margin-bottom: 20px;
+  }
+  
+  .candidate-details input[type="text"],
+  .candidate-details input[type="email"],
+  .candidate-details textarea,
+  .receiver-email input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .candidate-details textarea {
+    height: 150px;
+    resize: vertical;
+  }
+  
+  .referral-section {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .referral-section h2 {
+    margin-bottom: 10px;
+  }
+  
+  .referral-section p {
+    margin-bottom: 20px;
+  }
+  
+  .referral-section button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .referral-section button:hover {
+    background-color: #0056b3;
+  }
+  
+  .additional-resources {
+    margin-top: 20px;
+  }
+  
+  .resource-box ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .resource-item {
+    margin-bottom: 10px;
+  }
+  
+  .resource-item a {
+    display: block;
+    padding: 10px;
+    background-color: #f9f9f9;
+    color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .resource-item a:hover {
+    background-color: #e0e0e0;
+  }
+  .additional-resources ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0;
+  }
+  
+  .additional-resources ul li {
+    flex: 0 0 48%;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  .interview-tips {
+    width: 100%;
+    margin: 0 auto;
+    /* border: 1px solid #ccc; */
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .interview-tips h2 {
+    margin-bottom: 20px;
+  }
+  
+  .interview-tips ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .interview-tips ul li {
+    margin-bottom: 10px;
+  }
+  
+  .interview-tips ul li:last-child {
+    margin-bottom: 0;
+  }
+  
+  .interview-tips {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .interview-tips h2 {
+    margin-bottom: 20px;
+  }
+  
+  .tip-box {
+    width: calc(33.33% - 20px); /* Adjust as needed */
+    display: inline-block;
+    margin: 0 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tip-box h3 {
+    margin-bottom: 10px;
+  }
+  
+  .tip-box p {
+    margin: 0;
+  }
+
+  .interview-tips {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .interview-tips h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+  }
+  
+  .tip-box-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .tip-box {
+    flex-basis: calc(33.33% - 20px);
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .tip-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .tip-box h3 {
+    margin-bottom: 10px;
+    color: #555;
+    font-size: 18px;
+  }
+  
+  .tip-box p {
+    margin: 0;
+    color: #777;
+  }
+  
