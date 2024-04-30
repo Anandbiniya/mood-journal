@@ -14,6 +14,7 @@ import contact_image from "../assets/contact.svg";
 import { FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../contexts/UserAuthContext";
+import HeaderImage from "../assets/GroupImage1.png"
 
 const Home = ({ testimonies }) => {
   const { user } = useUserAuth();
@@ -30,10 +31,10 @@ const Home = ({ testimonies }) => {
         <Container className="header-container">
           <Row>
             <Col xs="12" lg="6" className="header-text">
-              <h1 className="header-brand">Self-Care Check-In Tool
-</h1>
+              <h2 className="header-brand">Self-Care Check-In Tool for Care Leavers
+</h2>
               <p className="header-motto">
-              Digital tools designed for self-care and mood improvement encompass features like mood tracking, mindfulness exercises, and personalized wellness plans, aiding individuals in enhancing their overall well-being..
+              Digital tools, supported by Udayan Care and UNICEF, are specifically designed for care leavers in India, aiming to facilitate the sharing of feelings and accessing help. These tools integrate features such as mood tracking, mindfulness exercises, and personalized wellness plans to empower individuals in enhancing their overall well-being. Through this collaboration, care leavers can find a supportive platform to express themselves and receive assistance tailored to their needs, ultimately fostering their emotional growth and resilience.
               </p>
               {user ? (
                 <Button
@@ -59,13 +60,17 @@ const Home = ({ testimonies }) => {
                 </div>
               )}
             </Col>
-            <Col xs="12" lg="6">
-              <img
-                src="https://img.freepik.com/free-vector/personal-growth-concept-illustration_114360-11052.jpg"
-                className="header-image"
-                alt="header-illustration"
-              />
-            </Col>
+            <Col xs="12" lg="6" className="d-flex justify-content-center align-items-center">
+  <img
+    src={HeaderImage}
+    className="header-image"
+    alt="header-illustration"
+    style={{ maxWidth: '95%', height: 'auto' }}
+  />
+</Col>
+
+
+            
           </Row>
         </Container>
       </div>
