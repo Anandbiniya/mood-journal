@@ -1,67 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import { FiHelpCircle } from "react-icons/fi";
-import { FiMessageCircle } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 
 const Therapist = () => {
   const [content, setContent] = useState("");
   const [response, setResponse] = useState("");
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [showRelatedQuestions, setShowRelatedQuestions] = useState(false);
-  const [relatedQuestions, setRelatedQuestions] = useState([]);
   const [userName, setUserName] = useState("");
 
   const questions = [
-    `How was your day${userName}`,
-    `What happened?${userName}`,
-    `It is okay ${userName}.`,
-    `I am able to understand ${userName} `,
+    `How was your day, ${userName}?`,
+    `What happened, ${userName}?`,
+    `It is okay, ${userName}.`,
+    `I am able to understand, ${userName}.`,
+    `Do you know what is interesting thing, ${userName}?`,
+    `You are awesome, ${userName}!`,
+    `We all are with you, ${userName}.`
   ];
-
-  useEffect(() => {
-    const speak = (text) => {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 1;
-      window.speechSynthesis.speak(utterance);
-    };
-
-    // Triggering voice assistant response based on user input
-    if (content.trim() !== "") {
-      handleAssistantResponse(questions[questionIndex]);
-    }
-  }, [content, questionIndex, userName]);
-
-  const handleAssistantResponse = async (query) => {
-    const responses = [
-      `${userName}`,
-      `I'm sorry to hear that${userName}. Do you want to talk about it?`,
-      `I understand ${userName}. Remember, it's okay not to be okay sometimes.`,
-      `Great${userName}! If you need anything else, feel free to ask.`,
-    ];
-
-    const index = questions.indexOf(query);
-    const assistantResponse = responses[index];
-
-    speak(assistantResponse);
-    setResponse(assistantResponse);
-
-    if (index < questions.length - 1) {
-      setQuestionIndex(index + 1);
-    }
-
-    setShowRelatedQuestions(true);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setContent("");
-  };
 
   const speak = (text) => {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = 1;
     window.speechSynthesis.speak(utterance);
+  };
+
+  const handleAssistantResponse = async () => {
+    const assistantResponse = questions[questionIndex];
+
+    setResponse(assistantResponse);
+    speak(assistantResponse);
+
+    if (questionIndex < questions.length - 1) {
+      setQuestionIndex(questionIndex + 1);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      handleAssistantResponse();
+    } catch (error) {
+      console.error("Error processing assistant response:", error);
+      setResponse("Sorry, something went wrong while processing your request.");
+    } finally {
+      setContent("");
+    }
   };
 
   const handleFindSupport = () => {
@@ -121,9 +105,7 @@ const Therapist = () => {
             <FiHelpCircle
               size={48}
               className="nurse-icon"
-              onClick={() =>
-                handleAssistantResponse(questions[questionIndex])
-              }
+              onClick={() => handleAssistantResponse()}
             />
           </Form>
         </Card.Body>

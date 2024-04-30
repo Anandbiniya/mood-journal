@@ -5,6 +5,8 @@ import DashboardLayout from "../../components/DashboardLayout";
 import axios from "axios";
 import { useUserAuth } from "../../contexts/UserAuthContext";
 import GraphView from "../../components/GraphView";
+import { Button } from "react-bootstrap";
+
 
 const Insights = () => {
   const [posts, setPosts] = useState([]);
@@ -41,6 +43,16 @@ const Insights = () => {
     fetchData();
   }, [user.email]);
 
+  const speak = (text) => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 1;
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const handleMindfulnessVoiceover = () => {
+    speak(`Hello ${user.name}, let's practice mindfulness together. Start by taking a deep breath in through your nose, feeling the air fill your lungs. Hold for a moment, then exhale slowly through your mouth, releasing any tension or stress. Repeat this process several times, focusing on each breath and allowing yourself to relax deeply.`);
+  };
+
   return (
     <>
       <DashboardLayout>
@@ -69,16 +81,37 @@ const Insights = () => {
                 <Col xs={12} xl={4} className="journals-list-text">
                   <h1>Calendar</h1>
                   <p>
-                    This calendar tracks the your mood on a daily basis, with
+                    This calendar tracks your mood on a daily basis, with
                     red indicating a negative or bad mood, yellow representing a
                     neutral mood, and green indicating a positive or good mood.
-                    By using these colors to represent you mood, the you can
+                    By using these colors to represent your mood, you can
                     easily visualize patterns and trends in your emotional
                     well-being over time.
                   </p>
                 </Col>
                 <Col xs={12} xl={8}>
                   <Calendar posts={posts} />
+                </Col>
+              </Row>
+              <Row className="mt-5">
+                <Col xs={12}>
+                  <h2>Practicing Mindfulness</h2>
+                  <p>
+                    Mindfulness involves being present in the moment and fully
+                    engaging with your surroundings. It can help reduce stress
+                    and anxiety, improve focus and concentration, and promote a
+                    sense of calm and well-being. Here are some simple
+                    mindfulness tips you can incorporate into your daily life:
+                  </p>
+                  <ul>
+                    <li>Practice deep breathing exercises.</li>
+                    <li>Take short breaks to observe your surroundings.</li>
+                    <li>Engage in activities that bring you joy and relaxation.</li>
+                    <li>Practice gratitude by focusing on things you're thankful for.</li>
+                    <li>Try guided meditation or yoga.</li>
+                    <li>Avoid multitasking and focus on one task at a time.</li>
+                  </ul>
+                  <Button onClick={handleMindfulnessVoiceover}>Start Mindfulness Exercise</Button>
                 </Col>
               </Row>
             </>

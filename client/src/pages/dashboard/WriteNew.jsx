@@ -1,9 +1,8 @@
+import { useState } from "react";
 import DashboardLayout from "../../components/DashboardLayout";
 import WaveRobot from "../../components/animations/WaveRobot";
 import { useUserAuth } from "../../contexts/UserAuthContext";
 import { Card, Row, Col, Form, Button } from "react-bootstrap";
-import { useState } from "react";
-import { TypeAnimation } from "react-type-animation";
 import axios from "axios";
 
 const WriteNew = () => {
@@ -11,6 +10,7 @@ const WriteNew = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [visibility, setVisibility] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,12 +32,21 @@ const WriteNew = () => {
         visibility: visibility,
         author_id: authorId,
       });
+      setSubmitted(true); // Update state after successful submission
+    congratulateUser(); // Call text-to-speech function
     } catch (error) {
       console.log("Error posting post data to the server", error);
     }
     setTitle("");
     setContent("");
     alert("Post Submitted!");
+  };
+
+  const congratulateUser = () => {
+    const congratulationMessage = "Congratulations for your journal!";
+    const utterance = new SpeechSynthesisUtterance(congratulationMessage);
+    utterance.rate = 1; // Adjust speech rate if needed
+    window.speechSynthesis.speak(utterance);
   };
 
   return (
@@ -52,20 +61,11 @@ const WriteNew = () => {
             xs={12}
             md={6}
           >
-            <TypeAnimation
-              sequence={[
-                "Hey there!",
-                2000,
-                "How did your day went today?",
-                2000,
-                "Tell me about it.",
-                2000,
-              ]}
-              wrapper="span"
-              cursor={true}
-              repeat={Infinity}
-              style={{ fontSize: "2em", display: "inline-block" }}
-            />
+            <Form.Group>
+              {submitted && (
+                <p>Congratulations! Your journal has been submitted.</p>
+              )}
+            </Form.Group>
           </Col>
         </Row>
         <Row className="mt-4 d-flex justify-content-center align-items-center">
