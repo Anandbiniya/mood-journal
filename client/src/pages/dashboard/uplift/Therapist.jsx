@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
-import { FaUserNurse } from "react-icons/fa";
+import { FiHelpCircle } from "react-icons/fi";
+import { FiMessageCircle } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 
 const Therapist = () => {
   const [content, setContent] = useState("");
@@ -8,9 +10,14 @@ const Therapist = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [showRelatedQuestions, setShowRelatedQuestions] = useState(false);
   const [relatedQuestions, setRelatedQuestions] = useState([]);
+  const [userName, setUserName] = useState("");
 
-  // Array of questions
-  const questions = ["How was your day?", "What happened?", "It is okay.", "I am able to understand."];
+  const questions = [
+    `How was your day${userName}`,
+    `What happened?${userName}`,
+    `It is okay ${userName}.`,
+    `I am able to understand ${userName} `,
+  ];
 
   useEffect(() => {
     const speak = (text) => {
@@ -19,31 +26,26 @@ const Therapist = () => {
       window.speechSynthesis.speak(utterance);
     };
 
-    // Speak the first question when the component mounts
-    speak(questions[0]);
-  }, []);
+    // Triggering voice assistant response based on user input
+    if (content.trim() !== "") {
+      handleAssistantResponse(questions[questionIndex]);
+    }
+  }, [content, questionIndex, userName]);
 
   const handleAssistantResponse = async (query) => {
     const responses = [
-      "My day is going well, thank you for asking!",
-      "I'm sorry to hear that. Do you want to talk about it?",
-      "I understand. Remember, it's okay not to be okay sometimes.",
-      "Great! If you need anything else, feel free to ask."
+      `${userName}`,
+      `I'm sorry to hear that${userName}. Do you want to talk about it?`,
+      `I understand ${userName}. Remember, it's okay not to be okay sometimes.`,
+      `Great${userName}! If you need anything else, feel free to ask.`,
     ];
 
-    // Get the index of the current question
     const index = questions.indexOf(query);
-
-    // Get the corresponding response
     const assistantResponse = responses[index];
 
-    // Speak the assistant's response
     speak(assistantResponse);
-
-    // Set the assistant's response in the state
     setResponse(assistantResponse);
 
-    // Increment the question index if there are more questions
     if (index < questions.length - 1) {
       setQuestionIndex(index + 1);
     }
@@ -53,21 +55,23 @@ const Therapist = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      // Trigger the voice assistant's response
-      handleAssistantResponse(questions[questionIndex]);
-    } catch (error) {
-      console.error("Error processing assistant response:", error);
-      setResponse("Sorry, something went wrong while processing your request.");
-    } finally {
-      setContent("");
-    }
+    setContent("");
   };
 
   const speak = (text) => {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = 1;
     window.speechSynthesis.speak(utterance);
+  };
+
+  const handleFindSupport = () => {
+    window.location.href =
+      "https://blog.opencounseling.com/hotlines-in/";
+  };
+
+  const handleSearchSupport = () => {
+    window.location.href =
+      "https://www.thelivelovelaughfoundation.org/find-help/helplines";
   };
 
   return (
@@ -98,6 +102,15 @@ const Therapist = () => {
                 onChange={(event) => setContent(event.target.value)}
               />
             </Form.Group>
+            <Form.Group className="mb-3" controlId="userNameEntry">
+              <Form.Label>Enter your name:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Your Name"
+                value={userName}
+                onChange={(event) => setUserName(event.target.value)}
+              />
+            </Form.Group>
             <Button
               variant="primary"
               type="submit"
@@ -105,39 +118,37 @@ const Therapist = () => {
             >
               Submit
             </Button>
-            <FaUserNurse
+            <FiHelpCircle
               size={48}
-              onClick={() => handleAssistantResponse(questions[questionIndex])}
-              style={{ cursor: "pointer" }}
+              className="nurse-icon"
+              onClick={() =>
+                handleAssistantResponse(questions[questionIndex])
+              }
             />
           </Form>
         </Card.Body>
       </Card>
-      {showRelatedQuestions && (
-        <div className="mt-5">
-          <h2>Follow-up Questions</h2>
-          <ul>
-            {relatedQuestions.map((question, index) => (
-              <li key={index}>{question}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+
       <div className="mt-5">
         <h2>Connect with Care Leavers Around India</h2>
-        <Button
-          variant="secondary"
-          onClick={() => handleAssistantResponse("Connect with Care Leavers")}
-          className="global-theme-button mr-3"
+        <a
+          href="YOUR_WHATSAPP_GROUP_LINK"
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          Connect with Care Leavers
-        </Button>
+          <Button
+            variant="secondary"
+            className="global-theme-button mr-3"
+          >
+            Connect with Care Leavers
+          </Button>
+        </a>
       </div>
       <div className="mt-3">
         <h2>Find Support Across India</h2>
         <Button
           variant="secondary"
-          onClick={() => handleAssistantResponse("Find Support Across India")}
+          onClick={handleFindSupport}
           className="global-theme-button mr-3"
         >
           Find Support Across India
@@ -147,7 +158,7 @@ const Therapist = () => {
         <h2>Search for Support</h2>
         <Button
           variant="secondary"
-          onClick={() => handleAssistantResponse("Search for Support")}
+          onClick={handleSearchSupport}
           className="global-theme-button"
         >
           Search for Support
