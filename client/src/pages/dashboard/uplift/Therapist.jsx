@@ -1,76 +1,73 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
-import axios from "axios";
+import { FaUserNurse } from "react-icons/fa";
 
 const Therapist = () => {
   const [content, setContent] = useState("");
-  const [response, setResponse] = useState("What is bothering you?");
+  const [response, setResponse] = useState("");
+  const [questionIndex, setQuestionIndex] = useState(0);
   const [showRelatedQuestions, setShowRelatedQuestions] = useState(false);
   const [relatedQuestions, setRelatedQuestions] = useState([]);
-  const [voiceEnabled, setVoiceEnabled] = useState(false);
-  const [voiceAssistant, setVoiceAssistant] = useState(null);
-  const [isSpeaking, setIsSpeaking] = useState(false);
+
+  // Array of questions
+  const questions = ["How was your day?", "What happened?", "It is okay.", "I am able to understand."];
 
   useEffect(() => {
-    if ("speechSynthesis" in window) {
-      setVoiceEnabled(true);
-      const assistant = new SpeechSynthesisUtterance();
-      assistant.lang = "en-US";
-      assistant.pitch = 1;
-      assistant.rate = 1;
-      setVoiceAssistant(assistant);
-    }
+    const speak = (text) => {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 1;
+      window.speechSynthesis.speak(utterance);
+    };
+
+    // Speak the first question when the component mounts
+    speak(questions[0]);
   }, []);
 
-  const speakResponse = () => {
-    if (voiceAssistant && !isSpeaking) {
-      voiceAssistant.text = response;
-      setIsSpeaking(true);
-      speechSynthesis.speak(voiceAssistant);
+  const handleAssistantResponse = async (query) => {
+    const responses = [
+      "My day is going well, thank you for asking!",
+      "I'm sorry to hear that. Do you want to talk about it?",
+      "I understand. Remember, it's okay not to be okay sometimes.",
+      "Great! If you need anything else, feel free to ask."
+    ];
+
+    // Get the index of the current question
+    const index = questions.indexOf(query);
+
+    // Get the corresponding response
+    const assistantResponse = responses[index];
+
+    // Speak the assistant's response
+    speak(assistantResponse);
+
+    // Set the assistant's response in the state
+    setResponse(assistantResponse);
+
+    // Increment the question index if there are more questions
+    if (index < questions.length - 1) {
+      setQuestionIndex(index + 1);
     }
+
+    setShowRelatedQuestions(true);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Call your server or AI service to generate a response based on the user's input
-      setResponse("Response from AI goes here...");
-      setShowRelatedQuestions(true);
+      // Trigger the voice assistant's response
+      handleAssistantResponse(questions[questionIndex]);
     } catch (error) {
-      console.log("error generating response", error);
+      console.error("Error processing assistant response:", error);
+      setResponse("Sorry, something went wrong while processing your request.");
+    } finally {
+      setContent("");
     }
-    setContent("");
-    speakResponse();
   };
 
-  const handleConnect = () => {
-    // Redirect to care leaver page
-  };
-
-  const handleFindSupport = () => {
-    window.location.href = "https://blog.opencounseling.com/hotlines-in/";
-  };
-
-  const handleSearchSupport = () => {
-    window.location.href = "https://www.thelivelovelaughfoundation.org/find-help/helplines";
-  };
-
-  useEffect(() => {
-    if (showRelatedQuestions) {
-      generateRelatedQuestions();
-    }
-  }, [showRelatedQuestions]);
-
-  const generateRelatedQuestions = async () => {
-    try {
-      // Call your server to generate related questions based on the user's input
-      let res = await axios.post("/generate-questions", {
-        input: content,
-      });
-      setRelatedQuestions(res.data.questions);
-    } catch (error) {
-      console.log("error generating related questions", error);
-    }
+  const speak = (text) => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 1;
+    window.speechSynthesis.speak(utterance);
   };
 
   return (
@@ -91,11 +88,11 @@ const Therapist = () => {
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="textEntry">
               <Form.Label>
-                Write about your problems, ask solutions or just vent out.
+                Write about your problems, ask solutions, or just vent out.
               </Form.Label>
               <Form.Control
                 as="textarea"
-                placeholder="What is bothering you?"
+                placeholder={questions[questionIndex]}
                 rows={5}
                 value={content}
                 onChange={(event) => setContent(event.target.value)}
@@ -108,16 +105,11 @@ const Therapist = () => {
             >
               Submit
             </Button>
-            {voiceEnabled && (
-              <Button
-                variant="primary"
-                className="global-theme-button"
-                onClick={speakResponse}
-                disabled={!response || isSpeaking}
-              >
-                {isSpeaking ? "Speaking..." : "Speak Response"}
-              </Button>
-            )}
+            <FaUserNurse
+              size={48}
+              onClick={() => handleAssistantResponse(questions[questionIndex])}
+              style={{ cursor: "pointer" }}
+            />
           </Form>
         </Card.Body>
       </Card>
@@ -135,7 +127,7 @@ const Therapist = () => {
         <h2>Connect with Care Leavers Around India</h2>
         <Button
           variant="secondary"
-          onClick={handleConnect}
+          onClick={() => handleAssistantResponse("Connect with Care Leavers")}
           className="global-theme-button mr-3"
         >
           Connect with Care Leavers
@@ -145,7 +137,7 @@ const Therapist = () => {
         <h2>Find Support Across India</h2>
         <Button
           variant="secondary"
-          onClick={handleFindSupport}
+          onClick={() => handleAssistantResponse("Find Support Across India")}
           className="global-theme-button mr-3"
         >
           Find Support Across India
@@ -155,7 +147,7 @@ const Therapist = () => {
         <h2>Search for Support</h2>
         <Button
           variant="secondary"
-          onClick={handleSearchSupport}
+          onClick={() => handleAssistantResponse("Search for Support")}
           className="global-theme-button"
         >
           Search for Support
